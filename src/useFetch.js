@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";// se importan useState, useEffect
 export function useFetch(){ //se crea una funcion donde se traeran y se trasformaran los datos de la api
 
   const [data, setData] = useState(null); 
-	
+	const [speciesFilter, setSpeciesFilter] = useState("all");
+
 	useEffect(()=>{
 		fetch("https://rickandmortyapi.com/api/character")
 		.then((Response)=> Response.json())//convierte a json
@@ -20,5 +21,8 @@ export function useFetch(){ //se crea una funcion donde se traeran y se trasform
 		});
 	},
 	[]);
-	return { data };
+	const filteredData = speciesFilter === "all" ? data : data.filter((character) => character.species === speciesFilter);
+
+  return { data: filteredData, speciesFilter, setSpeciesFilter };
+	// return { data };
 }
