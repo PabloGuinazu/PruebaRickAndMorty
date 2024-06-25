@@ -21,3 +21,7 @@ img{
   width: 100%;
   height: auto;
 }
+.content{
+  text-align: left;
+  padding-left: 20px;
+}
