@@ -6,8 +6,18 @@ export function useFetch(){ //se crea una funcion donde se traeran y se trasform
 	
 	useEffect(()=>{
 		fetch("https://rickandmortyapi.com/api/character")
-		.then((Response)=> Response.json())
-		.then((data) => setData(data.results));
+		.then((Response)=> Response.json())//convierte a json
+		.then((data) => {
+			//ordena los datos por nombre y luego genero
+			const SortData = data.results.sort((a,b) => {
+				const nameComparison = a.name.localeCompare(b.name);
+          if (nameComparison === 0) { //se compara el nombre si este es igual se compara por genero
+            return a.gender.localeCompare(b.gender);
+					}
+					return nameComparison;
+			});
+			setData(SortData);
+		});
 	},
 	[]);
 	return { data };
